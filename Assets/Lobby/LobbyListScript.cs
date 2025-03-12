@@ -30,7 +30,18 @@ public class LobbyListScript : MonoBehaviour
             foreach (Lobby lob in lobbies)
             {
                 ElementScript element = Instantiate(LobbyElementPrefab, LobbyList).GetComponent<ElementScript>();
-                element.CreateElement(lob.Name, $"{lob.Players.Count}/{lob.MaxPlayers}", lob);
+                string playername = "";
+                foreach (var player in lob.Players)
+                {
+                    if (player.Id == lob.HostId)
+                    {
+                        Debug.Log($"Znaleziono hosta: {player.Id}");
+                        playername= player.Data["PlayerName"].Value;
+                    }
+                }
+
+
+                element.CreateElement(lob.Name, $"{lob.Players.Count}/{lob.MaxPlayers}", playername, lob.HasPassword, lob.Data["GameStarted"].Value == "1" ? true : false, lob);
             }
         }
     }

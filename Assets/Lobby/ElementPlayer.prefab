@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &405221106982507423
 RectTransform:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 2972827074933346474}
   - component: {fileID: 4188362704009374683}
   - component: {fileID: 2256000703162612332}
-  - component: {fileID: 5821348272893594020}
+  - component: {fileID: 3796614245926140963}
   m_Layer: 5
   m_Name: ElementPlayer
   m_TagString: Untagged
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5821348272893594020
+--- !u!114 &3796614245926140963
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -359,8 +359,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6797621864297349335}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae13a4624461804bb33ab554713a99b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a5ba9a4710bb8540aaddcedd3bb9eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ServerName: {fileID: 4301237884891921069}
-  MaxPlayers: {fileID: 3979515182661995690}
+  OwnerName: {fileID: 4301237884891921069}

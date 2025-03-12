@@ -24,8 +24,11 @@ public class CreateLobbyScript : MonoBehaviour
                 Player = LobbyMenager.CurrentPlayer,
                 Data = new Dictionary<string, DataObject>
                 {
-                    {"RelayCode", new DataObject(DataObject.VisibilityOptions.Member, "0") }
+                    {"RelayCode", new DataObject(DataObject.VisibilityOptions.Member, "0") },
+                    {"GameStarted", new DataObject(DataObject.VisibilityOptions.Public, "0") },
+                    
                 }
+                
             };
 
             options.IsPrivate = Isprivate.isOn;

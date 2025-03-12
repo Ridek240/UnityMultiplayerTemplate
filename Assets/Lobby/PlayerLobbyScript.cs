@@ -35,8 +35,8 @@ public class PlayerLobbyScript : MonoBehaviour
 
             foreach (var player in LobbyMenager.ActualLobby.Players)
             {
-                ElementScript element = Instantiate(PlayerListPrefab, PlayerList).GetComponent<ElementScript>();
-                element.CreateElement(player.Id, player.Data["PlayerName"].Value, null);
+                PlayerElement element = Instantiate(PlayerListPrefab, PlayerList).GetComponent<PlayerElement>();
+                element.CreateElement(player.Data["PlayerName"].Value);
             }
         }
     }
@@ -69,7 +69,8 @@ public class PlayerLobbyScript : MonoBehaviour
                 {
                     Data = new Dictionary<string, DataObject>
                 {
-                    {"RelayCode", new DataObject(DataObject.VisibilityOptions.Member, RelayCode) }
+                    {"RelayCode", new DataObject(DataObject.VisibilityOptions.Member, RelayCode) },
+                    {"GameStarted", new DataObject(DataObject.VisibilityOptions.Public, "1") }
                 }
                 });
 

@@ -13,12 +13,22 @@ using Unity.Services.Authentication;
 public class LobbyInterface : MonoBehaviour
 {
     private static LobbyInterface instance;
-
+    public static LobbyLayout layout = LobbyLayout.LobbyList;
 
 
     private void OnEnable()
     {
-        OpenLobbyList();
+        switch(layout)
+        {
+            default:
+            case LobbyLayout.LobbyList:
+                OpenLobbyList();
+                break;
+            case LobbyLayout.LobbyPlayer:
+                OpenLobbyLobby();
+                break;
+        }
+        
     }
 
     private void Start()
@@ -41,6 +51,7 @@ public class LobbyInterface : MonoBehaviour
 
     public static void ClearChildren(Transform parent)
     {
+        if (parent.childCount == 0) return;
         foreach (Transform child in parent)
         {
             Destroy(child.gameObject);
@@ -91,6 +102,7 @@ public class LobbyInterface : MonoBehaviour
         LobbyCreateMenu.gameObject.SetActive(true);
         LobbyListMenu.gameObject.SetActive(false);
         LobbyLobbyMenu.gameObject.SetActive(false);
+        layout = LobbyLayout.LobbyCreate;
     }
 
     public void OpenLobbyLobby()
@@ -98,6 +110,7 @@ public class LobbyInterface : MonoBehaviour
         LobbyCreateMenu.gameObject.SetActive(false);
         LobbyListMenu.gameObject.SetActive(false);
         LobbyLobbyMenu.gameObject.SetActive(true);
+        layout = LobbyLayout.LobbyPlayer;
     }
 
     public void OpenLobbyList()
@@ -105,7 +118,13 @@ public class LobbyInterface : MonoBehaviour
         LobbyCreateMenu.gameObject.SetActive(false);
         LobbyListMenu.gameObject.SetActive(true);
         LobbyLobbyMenu.gameObject.SetActive(false);
+        layout = LobbyLayout.LobbyList;
     }
 
-
+    public enum LobbyLayout
+    {
+        LobbyList,
+        LobbyPlayer,
+        LobbyCreate
+    }
 }

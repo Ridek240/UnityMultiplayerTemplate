@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
@@ -6,6 +7,8 @@ using UnityEngine;
 
 public class LobbyMenager
 {
+
+    public static bool GameStarted;
     public static Lobby _ActualLobby;
     public static Lobby ActualLobby
     {
@@ -40,12 +43,13 @@ public class LobbyMenager
         {
             LobbyEventCallbacks callbacks = new LobbyEventCallbacks();
             callbacks.LobbyChanged += Callbacks_LobbyChanged;
+            callbacks.PlayerJoined += PlayerJoined;
             await LobbyService.Instance.SubscribeToLobbyEventsAsync(value.Id, callbacks);
 
             Debug.Log($"Joined Lobby: {_ActualLobby.Name} {_ActualLobby.MaxPlayers} {_ActualLobby.Id} {_ActualLobby.LobbyCode} ");
             UpdatePlayerList?.Invoke();
             LobbyInterface.Instance.OpenLobbyLobby();
-
+            Callbacks_LobbyChanged(null);
 
         }
         else
@@ -53,6 +57,11 @@ public class LobbyMenager
             LobbyInterface.Instance.OpenLobbyList();
         }
 
+    }
+
+    private static void PlayerJoined(List<LobbyPlayerJoined> list)
+    {
+        
     }
 
     private static async void Callbacks_LobbyChanged(ILobbyChanges obj)
