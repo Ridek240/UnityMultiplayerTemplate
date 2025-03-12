@@ -17,7 +17,7 @@ public class TestRelay : MonoBehaviour
     {
         try
         {
-            Allocation allocation =  await RelayService.Instance.CreateAllocationAsync(LobbyInterface.ActualLobby.MaxPlayers-1);
+            Allocation allocation =  await RelayService.Instance.CreateAllocationAsync(LobbyMenager.ActualLobby.MaxPlayers-1);
             string JoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             
             Debug.Log($"{JoinCode} {allocation.Region}");

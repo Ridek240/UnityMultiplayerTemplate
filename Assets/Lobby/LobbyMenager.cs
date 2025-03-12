@@ -21,6 +21,10 @@ public class LobbyMenager
 
     public static event Action UpdatePlayerList;
     public static Player CurrentPlayer;
+    public static bool IsLoggedIn
+    {
+        get { return CurrentPlayer != null; }
+    }
     public static bool IsLobbyOwner
     {
         get

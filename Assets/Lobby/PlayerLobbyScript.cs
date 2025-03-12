@@ -16,7 +16,7 @@ public class PlayerLobbyScript : MonoBehaviour
 
     private void Start()
     {
-        LobbyInterface.UpdatePlayerList += UpdatePlayerScreen;
+        LobbyMenager.UpdatePlayerList += UpdatePlayerScreen;
     }
 
     private void OnEnable()
@@ -26,14 +26,14 @@ public class PlayerLobbyScript : MonoBehaviour
 
     private void UpdatePlayerScreen()
     {
-        if (LobbyInterface.ActualLobby != null)
+        if (LobbyMenager.ActualLobby != null)
         {
             LobbyInterface.ClearChildren(PlayerList);
 
-            LobbyName.text = LobbyInterface.ActualLobby.Name;
-            Code.text = LobbyInterface.ActualLobby.LobbyCode;
+            LobbyName.text = LobbyMenager.ActualLobby.Name;
+            Code.text = LobbyMenager.ActualLobby.LobbyCode;
 
-            foreach (var player in LobbyInterface.ActualLobby.Players)
+            foreach (var player in LobbyMenager.ActualLobby.Players)
             {
                 ElementScript element = Instantiate(PlayerListPrefab, PlayerList).GetComponent<ElementScript>();
                 element.CreateElement(player.Id, player.Data["PlayerName"].Value, null);
@@ -43,28 +43,28 @@ public class PlayerLobbyScript : MonoBehaviour
 
     public void CopyToClipboard()
     {
-        GUIUtility.systemCopyBuffer = LobbyInterface.ActualLobby.LobbyCode;
+        GUIUtility.systemCopyBuffer = LobbyMenager.ActualLobby.LobbyCode;
     }
 
     public async void LeaveLobby()
     {
 
-        await LobbyService.Instance.RemovePlayerAsync(LobbyInterface.ActualLobby.Id, AuthenticationService.Instance.PlayerId);
+        await LobbyService.Instance.RemovePlayerAsync(LobbyMenager.ActualLobby.Id, AuthenticationService.Instance.PlayerId);
         LobbyInterface.Instance.OpenLobbyList();
-        LobbyInterface.ActualLobby = null;
+        LobbyMenager.ActualLobby = null;
         
     }
 
     public async void StartGame()
     {
-        if(LobbyInterface.IsLobbyOwner)
+        if(LobbyMenager.IsLobbyOwner)
         {
             try
             {
                 Debug.Log("StartGame");
 
                 string RelayCode = await TestRelay.CreateRelay();
-                await LobbyService.Instance.UpdateLobbyAsync(LobbyInterface.ActualLobby.Id, new
+                await LobbyService.Instance.UpdateLobbyAsync(LobbyMenager.ActualLobby.Id, new
                     UpdateLobbyOptions
                 {
                     Data = new Dictionary<string, DataObject>
@@ -72,11 +72,19 @@ public class PlayerLobbyScript : MonoBehaviour
                     {"RelayCode", new DataObject(DataObject.VisibilityOptions.Member, RelayCode) }
                 }
                 });
+
+
+                GameMenager.Instance.StartGame();
             }
             catch (Exception ex)
             {
                 Debug.LogException(ex);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        LobbyMenager.UpdatePlayerList -= UpdatePlayerScreen;
     }
 }

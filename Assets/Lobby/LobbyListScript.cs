@@ -20,7 +20,7 @@ public class LobbyListScript : MonoBehaviour
     public async void UpdateLobbyList()
     {
 
-        if (MPPlayer.IsLoggedIn)
+        if (LobbyMenager.IsLoggedIn)
         {
             List<Lobby> lobbies = await GetListOfLobbies();
 
@@ -68,11 +68,11 @@ public class LobbyListScript : MonoBehaviour
         {
             JoinLobbyByIdOptions options = new JoinLobbyByIdOptions
             {
-                Player = MPPlayer.CurrentPlayer
+                Player = LobbyMenager.CurrentPlayer
             };
 
             Lobby joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobby.Id, options);
-            LobbyInterface.ActualLobby = joinedLobby;
+            LobbyMenager.ActualLobby = joinedLobby;
         }
         catch (LobbyServiceException e)
         {
@@ -86,11 +86,11 @@ public class LobbyListScript : MonoBehaviour
         {
             JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions
             {
-                Player = MPPlayer.CurrentPlayer
+                Player = LobbyMenager.CurrentPlayer
             };
 
             Lobby joinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(CodeField.text, options);
-            LobbyInterface.ActualLobby = joinedLobby;
+            LobbyMenager.ActualLobby = joinedLobby;
 
         }
         catch (LobbyServiceException e)

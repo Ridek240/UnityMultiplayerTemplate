@@ -12,10 +12,7 @@ public class MPPlayer : MonoBehaviour
     [SerializeField] TMP_InputField PlayerName;
 
 
-    public static bool IsLoggedIn
-    {
-        get { return CurrentPlayer != null; }
-    }
+
     public async void CreatePlayer()
     {
         await UnityServices.InitializeAsync();

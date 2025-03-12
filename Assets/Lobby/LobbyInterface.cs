@@ -51,7 +51,7 @@ public class LobbyInterface : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(MPPlayer.CurrentPlayer == null)
+        if(LobbyMenager.CurrentPlayer == null)
         {
             LobbyMenu.gameObject.SetActive(false);
             PlayerMenu.gameObject.SetActive(true);
@@ -75,13 +75,13 @@ public class LobbyInterface : MonoBehaviour
 
     private async void SendHeartBeat()
     {
-        if (ActualLobby != null && IsLobbyOwner)
+        if (LobbyMenager.ActualLobby != null && LobbyMenager.IsLobbyOwner)
         {
             RefreshTimeReamining -= Time.deltaTime;
             if (RefreshTimeReamining < 0)
             {
                 RefreshTimeReamining = RefreshTime;
-                await LobbyService.Instance.SendHeartbeatPingAsync(ActualLobby.Id);
+                await LobbyService.Instance.SendHeartbeatPingAsync(LobbyMenager.ActualLobby.Id);
             }
         }
     }

@@ -21,7 +21,7 @@ public class CreateLobbyScript : MonoBehaviour
         {
             CreateLobbyOptions options = new CreateLobbyOptions
             {
-                Player = MPPlayer.CurrentPlayer,
+                Player = LobbyMenager.CurrentPlayer,
                 Data = new Dictionary<string, DataObject>
                 {
                     {"RelayCode", new DataObject(DataObject.VisibilityOptions.Member, "0") }
@@ -29,7 +29,7 @@ public class CreateLobbyScript : MonoBehaviour
             };
 
             options.IsPrivate = Isprivate.isOn;
-            LobbyInterface.ActualLobby = await LobbyService.Instance.CreateLobbyAsync(LobbyName.text, (int)MaxPlayers.value, options);
+            LobbyMenager.ActualLobby = await LobbyService.Instance.CreateLobbyAsync(LobbyName.text, (int)MaxPlayers.value, options);
             //LobbyMenager.Instance.OpenLobbyLobby();
         }
         catch (LobbyServiceException e)
