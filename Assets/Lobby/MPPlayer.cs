@@ -4,12 +4,18 @@ using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using System.Collections.Generic;
+using System;
 
 public class MPPlayer : MonoBehaviour
 {
-    public static Player CurrentPlayer;
+    
     [SerializeField] TMP_InputField PlayerName;
 
+
+    public static bool IsLoggedIn
+    {
+        get { return CurrentPlayer != null; }
+    }
     public async void CreatePlayer()
     {
         await UnityServices.InitializeAsync();
@@ -21,11 +27,14 @@ public class MPPlayer : MonoBehaviour
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-        CurrentPlayer = new Player
+        LobbyMenager.CurrentPlayer = new Player
         {
             Data = new Dictionary<string, PlayerDataObject> { { "PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, PlayerName.text) } }
         };
 
-        Debug.Log($"Created player {CurrentPlayer.Data["PlayerName"].Value} id: {CurrentPlayer.Id}");
+        Debug.Log($"Created player {LobbyMenager.CurrentPlayer.Data["PlayerName"].Value} id: {LobbyMenager.CurrentPlayer.Id}");
+        //onComplete?.Invoke();
     }
+
+
 }

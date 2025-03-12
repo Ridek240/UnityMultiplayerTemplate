@@ -50,7 +50,7 @@ public class TestLobby : MonoBehaviour
             };
             HostLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
             JoinedLobby = HostLobby;
-            Debug.Log($"Created Lobby: {HostLobby.Name} {HostLobby.MaxPlayers} {HostLobby.Id} {HostLobby.LobbyCode} ");
+            Debug.Log($"Joined Lobby: {HostLobby.Name} {HostLobby.MaxPlayers} {HostLobby.Id} {HostLobby.LobbyCode} ");
         }
         catch (LobbyServiceException e)
         {
@@ -186,7 +186,6 @@ public class TestLobby : MonoBehaviour
 
     public async void LeaveLobby()
     {
-        // LobbyService.Instance.SubscribeToLobbyEventsAsync(JoinedLobby.Id,new LobbyEventCallbacks)
         await LobbyService.Instance.RemovePlayerAsync(JoinedLobby.Id, AuthenticationService.Instance.PlayerId);
     }
 }
