@@ -48,8 +48,12 @@ public class LobbyMenager
 
             Debug.Log($"Joined Lobby: {_ActualLobby.Name} {_ActualLobby.MaxPlayers} {_ActualLobby.Id} {_ActualLobby.LobbyCode} ");
             UpdatePlayerList?.Invoke();
+
+            DiscordConnection.instance.ChangeActivity(_ActualLobby);
             LobbyInterface.Instance.OpenLobbyLobby();
             Callbacks_LobbyChanged(null);
+
+
 
         }
         else
