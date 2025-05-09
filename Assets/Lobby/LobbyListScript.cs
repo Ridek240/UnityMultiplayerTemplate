@@ -93,20 +93,9 @@ public class LobbyListScript : MonoBehaviour
 
     public async void JoinLobbyByCode()
     {
-        try
-        {
-            JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions
-            {
-                Player = LobbyMenager.CurrentPlayer
-            };
 
-            Lobby joinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(CodeField.text, options);
-            LobbyMenager.ActualLobby = joinedLobby;
+        LobbyMenager.JoinLobbyByCode(CodeField.text);
 
-        }
-        catch (LobbyServiceException e)
-        {
-            Debug.Log(e.Message);
-        }
     }
+
 }

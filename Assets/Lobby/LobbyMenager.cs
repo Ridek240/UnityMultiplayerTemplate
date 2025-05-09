@@ -79,4 +79,22 @@ public class LobbyMenager
         }
 
     }
+    public static async void JoinLobbyByCode(string code)
+    {
+        try
+        {
+            JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions
+            {
+                Player = LobbyMenager.CurrentPlayer
+            };
+
+            Lobby joinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
+            LobbyMenager.ActualLobby = joinedLobby;
+
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e.Message);
+        }
+    }
 }

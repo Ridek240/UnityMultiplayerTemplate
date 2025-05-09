@@ -28,6 +28,8 @@ public class TestLobby : MonoBehaviour
         };
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        //await AuthenticationService.Instance.SignInWithSteamAsync();
+        
 
     }
 

@@ -25,7 +25,7 @@ public class DiscordConnection : MonoBehaviour
         discord.GetActivityManager().OnActivityJoin += (secret) =>
         {
             Debug.Log("Otrzymano ¿¹danie do³¹czenia z tokenem: " + secret);
-
+            LobbyMenager.JoinLobbyByCode(secret);
             // Tutaj zrób mapowanie np. token  lobby
             //Do³¹czDoLobby(secret);
         };
