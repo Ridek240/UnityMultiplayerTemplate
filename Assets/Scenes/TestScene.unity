@@ -604,6 +604,7 @@ GameObject:
   - component: {fileID: 608403894}
   - component: {fileID: 608403893}
   - component: {fileID: 608403895}
+  - component: {fileID: 608403896}
   m_Layer: 5
   m_Name: PlayerList
   m_TagString: Untagged
@@ -682,6 +683,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c25c4c734308ee94bb88cd6a2650fe27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerList: {fileID: 592505222}
+  PlayerListPrefab: {fileID: 2972827074933346474, guid: 6326db65dd1fd9f4f87cd8a3344deb8d, type: 3}
+  LobbyName: {fileID: 67373589}
+  Code: {fileID: 826259521}
+--- !u!114 &608403896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608403891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87780ac5c8116ed4591130ec192416b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerList: {fileID: 592505222}

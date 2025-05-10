@@ -24,12 +24,14 @@ public class MPPlayer : MonoBehaviour
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-        LobbyMenager.CurrentPlayer = new Player
-        {
-            Data = new Dictionary<string, PlayerDataObject> { { "PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, PlayerName.text) } }
-        };
 
-        Debug.Log($"Created player {LobbyMenager.CurrentPlayer.Data["PlayerName"].Value} id: {LobbyMenager.CurrentPlayer.Id}");
+        var Data = new Dictionary<string, PlayerDataObject> { { "PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, PlayerName.text) } };
+
+        LobbyMenager.Instance.CurrentPlayer = new Player(AuthenticationService.Instance.PlayerId, null, Data);
+
+        Debug.Log($"Created player {LobbyMenager.Instance.CurrentPlayer.Data["PlayerName"].Value} id: {LobbyMenager.Instance.CurrentPlayer.Id}");
+        LobbyMenager.Instance.LobbyState = LobbyState.SearchingLobby;
+        gameObject.SetActive(false);
         //onComplete?.Invoke();
     }
 

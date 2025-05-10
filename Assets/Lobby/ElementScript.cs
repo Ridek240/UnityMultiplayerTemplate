@@ -38,6 +38,6 @@ public class ElementScript : MonoBehaviour
 
     public void onClick()
     {
-        LobbyListScript.JoinByLobby(Lobby);
+        LobbyMenager.Instance.JoinLobbyByLobby(Lobby);
     }
 }

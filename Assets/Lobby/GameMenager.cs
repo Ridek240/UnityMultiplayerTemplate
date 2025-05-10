@@ -93,7 +93,7 @@ public class GameMenager : NetworkBehaviour
     {
         NetworkManager.Singleton.Shutdown();
         SceneManager.LoadScene(MapList.LobbyScene.ToString());
-        LobbyInterface.layout = LobbyInterface.LobbyLayout.LobbyPlayer;
+        //LobbyInterface.layout = LobbyInterface.LobbyLayout.LobbyPlayer;
         
     }
 

@@ -17,25 +17,12 @@ public class TestRelay : MonoBehaviour
     {
         try
         {
-            Allocation allocation =  await RelayService.Instance.CreateAllocationAsync(LobbyMenager.ActualLobby.MaxPlayers-1);
+            Allocation allocation =  await RelayService.Instance.CreateAllocationAsync(LobbyMenager.Instance.ActualLobby.MaxPlayers-1);
             string JoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             
             Debug.Log($"{JoinCode} {allocation.Region}");
 
-
-            
-            //RelayServerData relayServerData = new RelayServerData()
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(allocation.ToRelayServerData("dtls"));
-            
-                
-                //NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(
-            //    allocation.RelayServer.IpV4,
-            //    (ushort)allocation.RelayServer.Port,
-            //    allocation.AllocationIdBytes,
-            //    allocation.Key,
-            //    allocation.ConnectionData
-            //    );
-
 
             NetworkManager.Singleton.StartHost();
             return JoinCode;
@@ -56,15 +43,7 @@ public class TestRelay : MonoBehaviour
 
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(allocation.ToRelayServerData("dtls"));
-            //NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData
-            //    (
-            //    allocation.RelayServer.IpV4,
-            //    (ushort)allocation.RelayServer.Port,
-            //    allocation.AllocationIdBytes,
-            //    allocation.Key,
-            //    allocation.ConnectionData,
-            //    allocation.HostConnectionData
-            //    );
+
 
             NetworkManager.Singleton.StartClient();
         }

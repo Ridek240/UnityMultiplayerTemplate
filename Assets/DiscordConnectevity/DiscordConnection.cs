@@ -21,16 +21,24 @@ public class DiscordConnection : MonoBehaviour
         {
             Destroy(this);
         }
-        discord = new Discord.Discord(1369010254985171036, (ulong)Discord.CreateFlags.NoRequireDiscord);
+        try
+        {
+            discord = new Discord.Discord(1369010254985171036, (ulong)Discord.CreateFlags.NoRequireDiscord);
+        }
+        catch(Exception e)
+        {
+            discord = null;
+            Debug.Log(e);
+        }
+        if (discord == null) return;
+
         discord.GetActivityManager().OnActivityJoin += (secret) =>
         {
             Debug.Log("Otrzymano ¿¹danie do³¹czenia z tokenem: " + secret);
+            LobbyMenager.Instance.JoinLobbyByCode(secret);
 
-            // Tutaj zrób mapowanie np. token  lobby
-            //Do³¹czDoLobby(secret);
         };
 
-        
         ChangeActivity("Main Menu");
     }
 
@@ -42,6 +50,7 @@ public class DiscordConnection : MonoBehaviour
 
     public void ChangeActivity(string SceneName)
     {
+        if (discord == null) return;
         var activityMenager = discord.GetActivityManager();
         var activity = new Discord.Activity();
 
@@ -55,32 +64,16 @@ public class DiscordConnection : MonoBehaviour
         activityMenager.UpdateActivity(activity, (res) => { Debug.Log("Activity Updated"); 
         });
     }
-    /*public void ChangeActivity(LevelDataInfo info)
-    {
-        var activityMenager = discord.GetActivityManager();
-        var activity = new Discord.Activity();
 
-        //activity.State = "Playing";
-        activity.State = "Exploring New Worlds";
-        activity.Details = $"{info.PlanetName} - {info.Location}";
-        activity.Timestamps.Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        activity.Assets.LargeImage = info.PlanetImage;
-        activity.Assets.LargeText = info.PlanetType;
-        activity.Assets.SmallImage = info.MissionImage;
-        activity.Assets.SmallText = info.Mission;
-
-        activityMenager.UpdateActivity(activity, (res) => {
-            Debug.Log("Activity Updated");
-        });
-    }*/
 
     public void ChangeActivity(Lobby lobby)
     {
+        if (discord == null) return;
         var activityMenager = discord.GetActivityManager();
         var activity = new Discord.Activity();
 
         activity.State = "In Lobby";
-        var detail = LobbyMenager.IsLobbyOwner ? "Creating Lobby" : "In Lobby";
+        var detail = LobbyMenager.Instance.IsLobbyOwner ? "Creating Lobby" : "In Lobby";
         activity.Details = $"{detail} : {lobby.Name}";
         activity.Secrets.Join = lobby.LobbyCode;
         activity.Party.Id = "1234";

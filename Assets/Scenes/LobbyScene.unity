@@ -917,9 +917,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 761875689}
-        m_TargetAssemblyTypeName: LobbyMenager, Assembly-CSharp
-        m_MethodName: OpenLobbyCreate
+      - m_Target: {fileID: 664860502}
+        m_TargetAssemblyTypeName: LobbyList, Assembly-CSharp
+        m_MethodName: OnCreateLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1116,6 +1116,7 @@ GameObject:
   - component: {fileID: 165072379}
   - component: {fileID: 165072381}
   - component: {fileID: 165072382}
+  - component: {fileID: 165072383}
   m_Layer: 0
   m_Name: GameMenager
   m_TagString: Untagged
@@ -1211,6 +1212,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0b971113b6c084b9d2368b715938f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &165072383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165072377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c2a404510e8fc4aa596b25a99e1eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameStarted: 0
+  RefreshTime: 15
+  RefreshTimeReamining: 15
 --- !u!1 &201724559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 201724560}
-  - component: {fileID: 201724561}
+  - component: {fileID: 201724562}
   m_Layer: 5
   m_Name: LobbyLobby
   m_TagString: Untagged
@@ -1254,7 +1270,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &201724561
+--- !u!114 &201724562
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1263,7 +1279,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 201724559}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c25c4c734308ee94bb88cd6a2650fe27, type: 3}
+  m_Script: {fileID: 11500000, guid: 87780ac5c8116ed4591130ec192416b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerList: {fileID: 805897615}
@@ -1976,7 +1992,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 907908165}
+  m_Father: {fileID: 761875687}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2737,7 +2753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 664860500}
-  - component: {fileID: 664860501}
+  - component: {fileID: 664860502}
   m_Layer: 5
   m_Name: LobbyList
   m_TagString: Untagged
@@ -2769,7 +2785,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &664860501
+--- !u!114 &664860502
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2778,10 +2794,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 664860499}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 430dce8062a389f4c8124940f1b6d474, type: 3}
+  m_Script: {fileID: 11500000, guid: 514436307c37bb14ebaf3558f6ad71fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LobbyList: {fileID: 910857129}
+  LobbyListRect: {fileID: 910857129}
   LobbyElementPrefab: {fileID: 2972827074933346474, guid: 49e739d376f35bb4e8a7d3ce4660920e, type: 3}
   CodeField: {fileID: 942172608}
 --- !u!1 &706588316
@@ -2970,8 +2986,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 201724561}
-        m_TargetAssemblyTypeName: PlayerLobbyScript, Assembly-CSharp
+      - m_Target: {fileID: 201724562}
+        m_TargetAssemblyTypeName: GameLobby, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -3108,7 +3124,6 @@ GameObject:
   - component: {fileID: 761875685}
   - component: {fileID: 761875684}
   - component: {fileID: 761875689}
-  - component: {fileID: 761875690}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3191,6 +3206,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 380887920}
   - {fileID: 1405211565}
   - {fileID: 907908165}
   m_Father: {fileID: 0}
@@ -3207,7 +3223,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761875683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e005c468459802e498f6f5e817fed3e2, type: 3}
   m_Name: 
@@ -3219,19 +3235,6 @@ MonoBehaviour:
   LobbyLobbyMenu: {fileID: 201724560}
   RefreshTime: 15
   RefreshTimeReamining: 15
---- !u!114 &761875690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 761875683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 752aa4fc004b25d4597e42ac5ec203eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerName: {fileID: 1477115069}
 --- !u!1 &779063771
 GameObject:
   m_ObjectHideFlags: 0
@@ -3608,7 +3611,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 380887920}
   - {fileID: 664860500}
   - {fileID: 1620118575}
   - {fileID: 201724560}
@@ -4189,7 +4191,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 761875690}
+      - m_Target: {fileID: 1405211566}
         m_TargetAssemblyTypeName: MPPlayer, Assembly-CSharp
         m_MethodName: CreatePlayer
         m_Mode: 1
@@ -4322,9 +4324,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1620118576}
-        m_TargetAssemblyTypeName: CreateLobbyScript, Assembly-CSharp
-        m_MethodName: Click
+      - m_Target: {fileID: 1620118577}
+        m_TargetAssemblyTypeName: LobbyCreation, Assembly-CSharp
+        m_MethodName: CreateLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4739,13 +4741,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1405211565}
+  - component: {fileID: 1405211566}
   m_Layer: 5
   m_Name: PlayerScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1405211565
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4768,6 +4771,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1405211566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405211564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752aa4fc004b25d4597e42ac5ec203eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerName: {fileID: 1477115069}
 --- !u!1 &1477115067
 GameObject:
   m_ObjectHideFlags: 0
@@ -5389,7 +5405,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 664860501}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LobbyListScript, Assembly-CSharp
         m_MethodName: UpdateLobbyList
         m_Mode: 1
@@ -5553,7 +5569,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1620118575}
-  - component: {fileID: 1620118576}
+  - component: {fileID: 1620118577}
   m_Layer: 5
   m_Name: CreateLobby
   m_TagString: Untagged
@@ -5584,7 +5600,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1620118576
+--- !u!114 &1620118577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5593,7 +5609,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1620118574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81fdc74fcebe4cb4682a86ba81741cd7, type: 3}
+  m_Script: {fileID: 11500000, guid: fd3c4fea0d7cae14ca28be7e622d238e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Isprivate: {fileID: 1334610758}
@@ -5683,8 +5699,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 201724561}
-        m_TargetAssemblyTypeName: PlayerLobbyScript, Assembly-CSharp
+      - m_Target: {fileID: 201724562}
+        m_TargetAssemblyTypeName: GameLobby, Assembly-CSharp
         m_MethodName: LeaveLobby
         m_Mode: 1
         m_Arguments:
@@ -5952,9 +5968,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 664860501}
-        m_TargetAssemblyTypeName: LobbyListScript, Assembly-CSharp
-        m_MethodName: JoinLobbyByCode
+      - m_Target: {fileID: 664860502}
+        m_TargetAssemblyTypeName: LobbyList, Assembly-CSharp
+        m_MethodName: OnJoinLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6453,8 +6469,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 201724561}
-        m_TargetAssemblyTypeName: PlayerLobbyScript, Assembly-CSharp
+      - m_Target: {fileID: 201724562}
+        m_TargetAssemblyTypeName: GameLobby, Assembly-CSharp
         m_MethodName: CopyToClipboard
         m_Mode: 1
         m_Arguments:
@@ -6507,6 +6523,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 165072380}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
@@ -6514,4 +6531,3 @@ SceneRoots:
   - {fileID: 964749625}
   - {fileID: 761875687}
   - {fileID: 1611063102}
-  - {fileID: 165072380}

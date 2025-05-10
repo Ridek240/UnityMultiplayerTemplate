@@ -1,70 +1,72 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
-public class PlayerLobbyScript : MonoBehaviour
+public class GameLobby : MonoBehaviour
 {
+
     public Transform PlayerList;
     public Transform PlayerListPrefab;
 
     [SerializeField] TextMeshProUGUI LobbyName;
     [SerializeField] TextMeshProUGUI Code;
 
-    private void Start()
+    private void Awake()
     {
-        LobbyMenager.UpdatePlayerList += UpdatePlayerScreen;
+        LobbyMenager.Instance.OnLobbyUpdate += UpdatePlayerScreen;
+        LobbyMenager.Instance.OnLobbyStateUpdate += OnLobbyStateUpdate;
     }
 
-    private void OnEnable()
+    private void OnLobbyStateUpdate()
     {
-        UpdatePlayerScreen();
+        if (LobbyMenager.Instance.LobbyState == LobbyState.InLobby)
+        {
+            gameObject.SetActive(true);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
-
     private void UpdatePlayerScreen()
     {
-        if (LobbyMenager.ActualLobby != null)
+        if (LobbyMenager.Instance.ActualLobby != null)
         {
-            LobbyInterface.ClearChildren(PlayerList);
+            LobbyMenager.ClearChildren(PlayerList);
 
-            LobbyName.text = LobbyMenager.ActualLobby.Name;
-            Code.text = LobbyMenager.ActualLobby.LobbyCode;
+            LobbyName.text = LobbyMenager.Instance.ActualLobby.Name;
+            Code.text = LobbyMenager.Instance.ActualLobby.LobbyCode;
 
-            foreach (var player in LobbyMenager.ActualLobby.Players)
+            foreach (var player in LobbyMenager.Instance.ActualLobby.Players)
             {
                 PlayerElement element = Instantiate(PlayerListPrefab, PlayerList).GetComponent<PlayerElement>();
                 element.CreateElement(player.Data["PlayerName"].Value);
             }
         }
     }
-
     public void CopyToClipboard()
     {
-        GUIUtility.systemCopyBuffer = LobbyMenager.ActualLobby.LobbyCode;
+        GUIUtility.systemCopyBuffer = LobbyMenager.Instance.ActualLobby.LobbyCode;
     }
 
-    public async void LeaveLobby()
+    public void LeaveLobby()
     {
-
-        await LobbyService.Instance.RemovePlayerAsync(LobbyMenager.ActualLobby.Id, AuthenticationService.Instance.PlayerId);
-        LobbyInterface.Instance.OpenLobbyList();
-        LobbyMenager.ActualLobby = null;
-        
+        LobbyMenager.Instance.LeaveLobbySelf();
     }
 
     public async void StartGame()
     {
-        if(LobbyMenager.IsLobbyOwner)
+        if (LobbyMenager.Instance.IsLobbyOwner)
         {
             try
             {
                 Debug.Log("StartGame");
 
                 string RelayCode = await TestRelay.CreateRelay();
-                await LobbyService.Instance.UpdateLobbyAsync(LobbyMenager.ActualLobby.Id, new
+                await LobbyService.Instance.UpdateLobbyAsync(LobbyMenager.Instance.ActualLobby.Id, new
                     UpdateLobbyOptions
                 {
                     Data = new Dictionary<string, DataObject>
@@ -83,9 +85,9 @@ public class PlayerLobbyScript : MonoBehaviour
             }
         }
     }
-
     private void OnDestroy()
     {
-        LobbyMenager.UpdatePlayerList -= UpdatePlayerScreen;
+        LobbyMenager.Instance.OnLobbyUpdate -= UpdatePlayerScreen;
     }
+
 }
